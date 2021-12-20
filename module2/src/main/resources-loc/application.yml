@@ -1,0 +1,8 @@
+server:
+    port: 8892
+
+naver:
+  openapi:
+    url: https://openapi.naver.com
+    clientId: 0ojvKL_qsu_BL03PANDj
+    clientSecret: mNeK4EgQhW

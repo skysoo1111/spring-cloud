@@ -1,0 +1,11 @@
+### custom api test
+GET http://localhost:8891/api/v1/consumer/getMemberName/555
+Accept: application/json
+
+### naver api feign test
+GET http://localhost:8891/api/blog
+Accept: application/json
+
+### naver api legacy test
+GET http://localhost:8891/api/legacy-blog
+Accept: application/json

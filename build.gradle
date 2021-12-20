@@ -1,0 +1,96 @@
+
+buildscript {
+    ext {
+        springboot_starter_version = "2.6.1"
+        spring_cloud_feign_version = "3.1.0"
+        lombok_version = "1.18.22"
+        slf4j_api_version = "1.7.32"
+        swagger_version = "3.0.0"
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+
+
+    group 'org.example'
+    version '1.0-SNAPSHOT'
+
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:$springboot_starter_version")
+        classpath "io.spring.gradle:dependency-management-plugin:1.0.11.RELEASE"
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    sourceCompatibility = 1.8
+
+    repositories {
+        mavenCentral()
+    }
+
+    configurations {
+        // log4j 사용하기 위해서 spring log 제외
+        all {
+            exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+        }
+
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+
+    // profile 은 local 이 default
+    ext.profile = (!project.hasProperty('profile') || !profile) ? 'loc' : profile
+
+    sourceSets {
+        main {
+            resources {
+                srcDirs "src/main/resources", "src/main/resources-$profile"
+            }
+        }
+    }
+    
+    dependencies {
+        annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:$springboot_starter_version"
+        annotationProcessor "org.projectlombok:lombok:$lombok_version"
+
+        // 컴파일 환경
+        compileOnly "org.projectlombok:lombok:$lombok_version"
+
+        // 컴파일 + runtime
+        implementation "org.springframework.boot:spring-boot-starter:$springboot_starter_version"
+        implementation "org.springframework.boot:spring-boot-starter-web:$springboot_starter_version"
+        implementation "org.springframework.boot:spring-boot-starter-log4j2:$springboot_starter_version"
+        implementation "org.springframework.boot:spring-boot-autoconfigure:$springboot_starter_version"
+        implementation "org.springframework.boot:spring-boot-autoconfigure-processor:$springboot_starter_version"
+        implementation "io.springfox:springfox-swagger2:$swagger_version"
+        implementation "io.springfox:springfox-swagger-ui:$swagger_version"
+
+        // 개발 환경
+        developmentOnly "org.springframework.boot:spring-boot-devtools:$springboot_starter_version"
+
+        //테스트 환경
+        testImplementation "org.springframework.boot:spring-boot-starter-test:$springboot_starter_version"
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+}
+
+project(':module1') {
+    dependencies {
+    }
+}
+
+project(':module2') {
+    dependencies {
+        implementation "org.springframework.cloud:spring-cloud-starter-openfeign:$spring_cloud_feign_version"
+    }
+}
