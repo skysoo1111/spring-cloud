@@ -1,5 +1,5 @@
 ### custom api test
-GET http://localhost:8891/api/v1/consumer/getMemberName/555
+GET http://localhost:8891/api/v1/consumer/getMemberName/554
 Accept: application/json
 
 ### naver api feign test
