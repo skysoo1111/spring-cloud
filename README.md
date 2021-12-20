@@ -9,7 +9,7 @@
 postman.http에서 feign 테스트 api가 있으니 실행해보면 된다.
 
 ## 1. customapi
-spring-cloud-demo1 프로젝트의 Provider Controller와 매핑되는 커스텀 API
+module1 프로젝트의 Provider Controller와 매핑되는 커스텀 API
 
 ## 2. openapi
 Naver Open API로 의 호출
