@@ -42,7 +42,10 @@ public class HeaderConfiguration {
 2. Contract
 - feign.Contract.Default
 feign default Contract 사용시 @RequestLine 을 사용해야 한다.
-~~~java @RequestLine("GET /fail/") ~~~
+~~~java 
+@RequestLine("GET /fail/") 
+~~~
+
 - SpringMvcContract
 Feign Client에서 @GetMapping, @PostMapping, @RequestMapping 을 사용할 수 있다.
  
